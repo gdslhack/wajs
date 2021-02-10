@@ -8,38 +8,35 @@
         <div id="app">
            <h1>bot s3mpag</h1>
            <p>Powered By Bapak Kost</p>
-        <img src="" alt="QR Code" id="qrcode">
-        <h3>Logs:</h3>
-        <ul class="logs"></ul>
+		<img src="" alt="QR Code" id="qrcode">
+		<h3>Logs:</h3>
+		<ul class="logs"></ul>
         </div>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" crossorigin="anonymous"></script>
 	<script>
                 $(document).ready(function() {
-                        var socket = io.connect('http://:8000',{ path:'/socket.io'});
+			var socket = io();
 
-                  socket.on('message', function(msg) {
-                        $('.logs').append($('<li>').text(msg));
-                        });
+			socket.on('message', function(msg) {
+				$('.logs').append($('<li>').text(msg));
+			});
 
+			socket.on('qr', function(src) {
+				$('#qrcode').attr('src', src);
+				$('#qrcode').show();
+			});
 
-                        socket.on('qr', function(src) {
-                        $('#qrcode').attr('src', src);
-                        });
+			socket.on('ready', function(data) {
+				$('#qrcode').hide();
+			});
 
-                        socket.on('ready', function(src) {
-                        $('#qrcode').hide();
-                        });
-
-                         socket.on('authenticated', function(src) {
-                        $('#qrcode').hide();
-                        });
-
-
-                });
-        </script>
-
+			socket.on('authenticated', function(data) {
+				$('#qrcode').hide();
+			});
+		});
+	</script>
 </body>
 </html>
 
