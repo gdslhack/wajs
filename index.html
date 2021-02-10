@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <title>halo s3mpag pain di sini Sqcan nih QR</title>
+</head>
+<body>
+
+        <div id="app">
+           <h1>bot s3mpag</h1>
+           <p>Powered By Bapak Kost</p>
+        <img src="" alt="QR Code" id="qrcode">
+        <h3>Logs:</h3>
+        <ul class="logs"></ul>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.1/socket.io.min.js" integrity="sha512-tXH7Av8en7+/hg0XwBppaCDPmpJhUXbZ+j7lNC4y+ZQpmCZQcgQN6RjkM7Irj1MUW7bZengfuTOqR4RzCC4bnA==" crossorigin="anonymous"></script>
+        <script>
+                $(document).ready(function() {
+                        var socket = io.connect('http://:8000',{ path:'/socket.io'});
+
+                  socket.on('message', function(msg) {
+                        $('.logs').append($('<li>').text(msg));
+                        });
+
+
+                        socket.on('qr', function(src) {
+                        $('#qrcode').attr('src', src);
+                        });
+
+                        socket.on('ready', function(src) {
+                        $('#qrcode').hide();
+                        });
+
+                         socket.on('authenticated', function(src) {
+                        $('#qrcode').hide();
+                        });
+
+
+                });
+        </script>
+
+</body>
+</html>
+
