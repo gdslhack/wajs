@@ -7,8 +7,8 @@ const http = require('http')
 const fs = require('fs');
 const { phoneNumberFormatter } = require('./helpers/formatter');
 const fileUpload = require ('express-fileupload');
-const port = process.env.PORT || 8000;
 const axios = require ('axios');
+const port = process.env.PORT || 8000;
 
 const app = express();
 const server = http.createServer(app);
@@ -177,6 +177,6 @@ const checkRegisteredNumber = async function(number) {
      });
 });
 
-server.listen(port, function(){
-        console.log('App Running on *: ' + port);
+server.listen(port, function() {
+  console.log('App running on *: ' + port);
 });
